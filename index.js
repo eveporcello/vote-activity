@@ -30,7 +30,7 @@ const typeDefs = gql`
   }
 
   type Subscription {
-    result: Results!
+    results: Results!
   }
 `;
 
@@ -46,14 +46,14 @@ const resolvers = {
       else spaces += inc;
 
       pubsub.publish("vote-recorded", {
-        result: { tabs, spaces }
+        results: { tabs, spaces }
       });
 
       return "Thank you for voting!";
     }
   },
   Subscription: {
-    result: {
+    results: {
       subscribe: (parent, args, { pubsub }) =>
         pubsub.asyncIterator("vote-recorded")
     }
